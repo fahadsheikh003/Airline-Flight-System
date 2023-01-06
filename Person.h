@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include"Constants.h"
 
 using namespace std;
 
@@ -15,15 +16,15 @@ class Person
 public:
 	Person();
 
-	Person(string, long long, string, string, string);
+	Person(string, llong, string, string, string);
 	
-	void setdata(string, long long, string, string, string);
+	void setdata(string, llong, string, string, string);
 
 	void setdata(string);
 
 	void setname(string);
 
-	void setCNIC(long long);
+	void setCNIC(llong);
 
 	void setusername(string);
 
