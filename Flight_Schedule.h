@@ -43,7 +43,7 @@ public:
 	string getsrcairport();
 	void setdestairport(const string&);
 	string getdestairport();
-	void setplane(const Airplane*);
+	void setplane(const Airplane);
 	Airplane* getplane();
 	void adddelay(const string&);
 	string* getdelay();
