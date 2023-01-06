@@ -1,7 +1,7 @@
 #include<iostream>
 #include<iomanip>
 #include<string>
-#include<conio.h>
+// #include<conio.h>
 #include<cstdlib>
 #include<ctime>
 #include"Person.h"
@@ -18,6 +18,7 @@
 #include"Seat.h"
 #include"Travel_History.h"
 #include"NPAFS.h"
+#include"Constants.h"
 
 using namespace std;
 
@@ -25,13 +26,13 @@ using namespace std;
 Person::Person()
 {
 	name = "NULL";
-	CNIC = NULL;
+	CNIC = -1;
 	username = "NULL";
 	password = "NULL";
 	pin = "NULL";
 };
 
-Person::Person(string n, long long CNIC, string un, string pass, string pin)
+Person::Person(string n, llong CNIC, string un, string pass, string pin)
 {
 	name = n;
 	this->CNIC = CNIC;
@@ -40,7 +41,7 @@ Person::Person(string n, long long CNIC, string un, string pass, string pin)
 	this->pin = pin;
 }
 
-void Person::setdata(string n, long long CNIC, string un, string pass, string pin)
+void Person::setdata(string n, llong CNIC, string un, string pass, string pin)
 {
 	name = n;
 	this->CNIC = CNIC;
@@ -67,13 +68,13 @@ void Person::setdata(string temp)
 	pos = temp.find("\n");
 	ptr[4] = temp.substr(0, pos);
 
-	long long cnic = 0;
+	llong cnic = 0;
 	int i = 0;
 	while (1)
 	{
 		if (int(ptr[4][i]) >= 48 && int(ptr[4][i]) <= 57)
 		{
-			cnic = cnic * 10 + (long long(ptr[4][i]) - long long(48));
+			cnic = cnic * 10 + (llong(ptr[4][i]) - llong(48));
 		}
 		else
 			break;
@@ -94,7 +95,7 @@ void Person::setname(string n)
 	name = n;
 }
 
-void Person::setCNIC(long long CNIC)
+void Person::setCNIC(llong CNIC)
 {
 	this->CNIC = CNIC;
 }
@@ -119,7 +120,7 @@ string Person::getname()
 	return name;
 }
 
-long long Person::getCNIC()
+llong Person::getCNIC()
 {
 	return CNIC;
 }
@@ -151,7 +152,7 @@ void Person::display()
 void Person::makeNULL()
 {
 	this->setname("NULL");
-	this->setCNIC(long long(0));
+	this->setCNIC(llong(0));
 	this->setusername("NULL");
 	this->setpassword("NULL");
 	this->setpin("-1");
@@ -160,7 +161,7 @@ void Person::makeNULL()
 //Admin class
 Admin::Admin() {};
 
-Admin::Admin(string n, long long CNIC, string un, string pass, string pin)
+Admin::Admin(string n, llong CNIC, string un, string pass, string pin)
 {
 	this->setname(n);
 	this->setCNIC(CNIC);
@@ -854,9 +855,9 @@ string Flight_Schedule::getdestairport()
 	return destairport;
 }
 
-void Flight_Schedule::setplane(const Airplane* plane)
+void Flight_Schedule::setplane(const Airplane plane)
 {
-	this->plane = new Airplane(*plane);
+	this->plane = new Airplane(plane);
 }
 
 Airplane* Flight_Schedule::getplane()
@@ -1095,7 +1096,7 @@ int Flight_Schedule::base = 0;
 //Passenger class
 Passenger::Passenger() : vsize(0), visits{}, visasize(0), visa{}, flightsize(0), tickets_reserved{} {};
 
-Passenger::Passenger(string n, long long CNIC, string un, string pass, string pin) : vsize(0), visits{}, visasize(0), visa{}, flightsize(0), tickets_reserved{}
+Passenger::Passenger(string n, llong CNIC, string un, string pass, string pin) : vsize(0), visits{}, visasize(0), visa{}, flightsize(0), tickets_reserved{}
 {
 	this->setname(n);
 	this->setCNIC(CNIC);
@@ -1124,7 +1125,7 @@ void Passenger::setaccount()
 		int i = 0;
 		while (1)
 		{
-			a = getch();
+			a = getchar();
 
 			if (a >= 32 && a <= 126)
 			{
@@ -1159,7 +1160,7 @@ void Passenger::setaccount()
 void Passenger::makeNULL()
 {
 	Person::makeNULL();
-	vsize = visasize = flightsize = NULL;
+	vsize = visasize = flightsize = -1;
 	visits = nullptr;
 	tickets_reserved = nullptr;
 	visa = nullptr;
@@ -1498,7 +1499,7 @@ void NPAFS::initialflightdata()
 	flights[0].setdestairport("South");
 	flights[0].settakingoff_time(temp);
 	flights[0].setduration();
-	flights[0].setplane(&cities[1].getplane(rand() % 20));
+	flights[0].setplane(cities[1].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1513,7 +1514,7 @@ void NPAFS::initialflightdata()
 	flights[1].setdestairport("South");
 	flights[1].settakingoff_time(temp);
 	flights[1].setduration();
-	flights[1].setplane(&cities[1].getplane(rand() % 20));
+	flights[1].setplane(cities[1].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1528,7 +1529,7 @@ void NPAFS::initialflightdata()
 	flights[2].setdestairport("Japan's International Airport");
 	flights[2].settakingoff_time(temp);
 	flights[2].setduration();
-	flights[2].setplane(&cities[1].getplane(rand() % 20));
+	flights[2].setplane(cities[1].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1544,7 +1545,7 @@ void NPAFS::initialflightdata()
 	flights[3].setdestairport("South");
 	flights[3].settakingoff_time(temp);
 	flights[3].setduration();
-	flights[3].setplane(&cities[4].getplane(rand() % 20));
+	flights[3].setplane(cities[4].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1559,7 +1560,7 @@ void NPAFS::initialflightdata()
 	flights[4].setdestairport("South");
 	flights[4].settakingoff_time(temp);
 	flights[4].setduration();
-	flights[4].setplane(&cities[4].getplane(rand() % 20));
+	flights[4].setplane(cities[4].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1574,7 +1575,7 @@ void NPAFS::initialflightdata()
 	flights[5].setdestairport("Turkey's International Airport");
 	flights[5].settakingoff_time(temp);
 	flights[5].setduration();
-	flights[5].setplane(&cities[4].getplane(rand() % 20));
+	flights[5].setplane(cities[4].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1590,7 +1591,7 @@ void NPAFS::initialflightdata()
 	flights[6].setdestairport("South");
 	flights[6].settakingoff_time(temp);
 	flights[6].setduration();
-	flights[6].setplane(&cities[3].getplane(rand() % 20));
+	flights[6].setplane(cities[3].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1605,7 +1606,7 @@ void NPAFS::initialflightdata()
 	flights[7].setdestairport("South");
 	flights[7].settakingoff_time(temp);
 	flights[7].setduration();
-	flights[7].setplane(&cities[3].getplane(rand() % 20));
+	flights[7].setplane(cities[3].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1620,7 +1621,7 @@ void NPAFS::initialflightdata()
 	flights[8].setdestairport("Iran's International Airport");
 	flights[8].settakingoff_time(temp);
 	flights[8].setduration();
-	flights[8].setplane(&cities[3].getplane(rand() % 20));
+	flights[8].setplane(cities[3].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1636,7 +1637,7 @@ void NPAFS::initialflightdata()
 	flights[9].setdestairport("South");
 	flights[9].settakingoff_time(temp);
 	flights[9].setduration();
-	flights[9].setplane(&cities[0].getplane(rand() % 20));
+	flights[9].setplane(cities[0].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1651,7 +1652,7 @@ void NPAFS::initialflightdata()
 	flights[10].setdestairport("South");
 	flights[10].settakingoff_time(temp);
 	flights[10].setduration();
-	flights[10].setplane(&cities[0].getplane(rand() % 20));
+	flights[10].setplane(cities[0].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1666,7 +1667,7 @@ void NPAFS::initialflightdata()
 	flights[11].setdestairport("Saudi International Airport");
 	flights[11].settakingoff_time(temp);
 	flights[11].setduration();
-	flights[11].setplane(&cities[0].getplane(rand() % 20));
+	flights[11].setplane(cities[0].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1682,7 +1683,7 @@ void NPAFS::initialflightdata()
 	flights[12].setdestairport("South");
 	flights[12].settakingoff_time(temp);
 	flights[12].setduration();
-	flights[12].setplane(&cities[2].getplane(rand() % 20));
+	flights[12].setplane(cities[2].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1697,7 +1698,7 @@ void NPAFS::initialflightdata()
 	flights[13].setdestairport("South");
 	flights[13].settakingoff_time(temp);
 	flights[13].setduration();
-	flights[13].setplane(&cities[2].getplane(rand() % 20));
+	flights[13].setplane(cities[2].getplane(rand() % 20));
 
 	temp.day = rand() % 30 + 1;
 	temp.month = rand() % 6 + 7;
@@ -1712,7 +1713,7 @@ void NPAFS::initialflightdata()
 	flights[14].setdestairport("Los Angelos' International Airport");
 	flights[14].settakingoff_time(temp);
 	flights[14].setduration();
-	flights[14].setplane(&cities[2].getplane(rand() % 20));
+	flights[14].setplane(cities[2].getplane(rand() % 20));
 }
 
 void NPAFS::menu()
@@ -2058,7 +2059,7 @@ void NPAFS::addflight()
 	cin.ignore();
 	Airplane A = cities[xd].getplane(id);
 
-	tempflights[flightsize].setplane(&A);
+	tempflights[flightsize].setplane(A);
 
 	string airport = tempflights[flightsize].getsrcairport();
 
@@ -2198,7 +2199,7 @@ passagain:
 	int i = 0;
 	while (1)
 	{
-		a = getch();
+		a = getchar();
 
 		if (a >= 32 && a <= 126)
 		{
@@ -2435,7 +2436,7 @@ pass:
 	int i = 0;
 	while (1)
 	{
-		a = getch();
+		a = getchar();
 
 		if (a >= 32 && a <= 126)
 		{
@@ -2495,7 +2496,7 @@ pass:
 		int i = 0;
 		while (1)
 		{
-			a = getch();
+			a = getchar();
 
 			if (a >= 32 && a <= 126)
 			{
@@ -2544,7 +2545,7 @@ pin:
 	i = 0;
 	while (1)
 	{
-		a = getch();
+		a = getchar();
 
 		if (a >= 32 && a <= 126)
 		{
@@ -2575,7 +2576,7 @@ pin:
 	getline(cin, name);
 
 cnic:
-	long long cnic;
+	llong cnic;
 	cout << "Enter CNIC: ";
 	cin >> cnic;
 	cin.ignore();
