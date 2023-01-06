@@ -7,7 +7,7 @@ using namespace std;
 class Person
 {
 	string name;
-	long long CNIC;
+	llong CNIC;
 	string username;
 	string password;
 	string pin;
